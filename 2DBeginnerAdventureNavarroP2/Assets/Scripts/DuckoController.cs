@@ -9,7 +9,7 @@ public class DuckoController : MonoBehaviour
 
     public int maxHealth = 5;
     public float timeInvincable = 2;
-   public int health { get { return currentHealth; } }
+    public int health { get { return currentHealth; } }
     int currentHealth;
 
     bool isInvincable;
@@ -31,13 +31,13 @@ public class DuckoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
 
         if (isInvincable)
         {
             InvincableTimer = Time.deltaTime;
-            if(InvincableTimer < 0 )
+            if (InvincableTimer < 0)
             {
                 isInvincable = false;
             }
@@ -46,25 +46,24 @@ public class DuckoController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 position = transform.position;
+        Vector2 position = rigidbody2d.position;
         position.x = position.x + speed * horizontal * Time.deltaTime;
         position.y = position.y + speed * vertical * Time.deltaTime;
 
         rigidbody2d.MovePosition(position);
     }
-     public void ChangeHealth(int amount)
+    public void ChangeHealth(int amount)
     {
-        if(amount < 0)
+        if (amount < 0)
         {
-            return;
+            if (isInvincable)
+            {
+                return;
+            }
+            isInvincable = true;
+            InvincableTimer = timeInvincable;
+            currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+            Debug.Log(currentHealth + "/" + maxHealth);
         }
-        isInvincable = true;
-        InvincableTimer = timeInvincable;
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        Debug.Log(currentHealth + "/" + maxHealth);
     }
-
-
-
-
 }
