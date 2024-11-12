@@ -45,4 +45,12 @@ public class enemyController : MonoBehaviour
 
         rigidbody2d.MovePosition(position);
     }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+         DuckoController player = other.gameObject.GetComponent<DuckoController>();
+        if(player != null) 
+        {
+            player.ChangeHealth(-1);
+        }
+    }
 }

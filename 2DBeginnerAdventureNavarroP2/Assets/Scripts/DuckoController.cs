@@ -24,7 +24,6 @@ public class DuckoController : MonoBehaviour
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
-        currentHealth = 1;
 
     }
 
